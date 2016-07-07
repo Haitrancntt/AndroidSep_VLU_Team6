@@ -1,19 +1,20 @@
 package com.example.haitr.planed_12062016;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+
+import Database.DatabaseConnection;
 
 /**
  * Created by haitr on 6/12/2016.
  */
 public class LoginActivity extends AppCompatActivity {
+    public static DatabaseConnection db;
     private Button btnlogin;
     private RelativeLayout relativeLayout;
 
@@ -22,10 +23,17 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_login);
+
         btnlogin = (Button) findViewById(R.id.buttonlogin);
         btnlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                db = new DatabaseConnection();
+                try {
+                    db.Connect();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
             }
